@@ -1,0 +1,57 @@
+version: 2
+
+models:
+
+  - name: obt_listing_analytics
+    description: >
+      Final listing-grain analytical table combining Airbnb listing,
+      host and aggregated review sentiment information. One row represents
+      one Airbnb listing.
+
+    columns:
+
+      - name: listing_id
+        description: Unique identifier for the listing.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: host_id
+        description: Host associated with the listing.
+        data_tests:
+          - not_null
+
+      - name: price
+        description: Standardized listing price.
+        data_tests:
+          - not_null
+
+      - name: minimum_nights
+        description: Minimum stay requirement after staging standardization.
+
+      - name: stay_category
+        description: Stay-duration category generated using the reusable dbt macro.
+        data_tests:
+          - accepted_values:
+              values:
+                - short_stay
+                - medium_stay
+                - long_stay
+                - extended_stay
+
+      - name: total_reviews
+        description: Total number of logically distinct reviews for the listing.
+        data_tests:
+          - not_null
+
+      - name: has_reviews
+        description: Indicates whether the listing has at least one review.
+
+      - name: positive_sentiment_pct
+        description: Percentage of classified reviews with positive sentiment.
+
+      - name: neutral_sentiment_pct
+        description: Percentage of classified reviews with neutral sentiment.
+
+      - name: negative_sentiment_pct
+        description: Percentage of classified reviews with negative sentiment.

@@ -2,10 +2,19 @@ snowflake_dbt:
   target: dev
 
   outputs:
+
     dev:
       type: snowflake
-      role: ACCOUNTADMIN
+      role: DBT_DEV_ROLE
       warehouse: COMPUTE_WH
       database: AIRBNB
       schema: ANALYTICS
+      threads: 8
+
+    prod:
+      type: snowflake
+      role: DBT_PROD_ROLE
+      warehouse: COMPUTE_WH
+      database: AIRBNB
+      schema: ANALYTICS_PROD
       threads: 8

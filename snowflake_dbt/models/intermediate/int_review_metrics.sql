@@ -1,7 +1,7 @@
 with reviews as (
 
     select *
-    from {{ ref('stg_reviews') }}
+    from {{ ref('int_reviews_incremental') }}
 
 ),
 
