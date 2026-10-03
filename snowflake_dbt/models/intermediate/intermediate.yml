@@ -1,0 +1,34 @@
+version: 2
+
+models:
+
+  - name: int_listings_enriched
+    description: Listing-level dataset enriched with host attributes.
+    columns:
+
+      - name: listing_id
+        description: Unique identifier for each listing.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: host_id
+        description: Host associated with the listing.
+        data_tests:
+          - not_null
+
+
+  - name: int_review_metrics
+    description: Listing-level aggregated review and sentiment metrics.
+    columns:
+
+      - name: listing_id
+        description: Unique identifier for each reviewed listing.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: total_reviews
+        description: Total number of reviews for the listing.
+        data_tests:
+          - not_null
