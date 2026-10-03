@@ -1,0 +1,11 @@
+snowflake_dbt:
+  target: dev
+
+  outputs:
+    dev:
+      type: snowflake
+      role: ACCOUNTADMIN
+      warehouse: COMPUTE_WH
+      database: AIRBNB
+      schema: ANALYTICS
+      threads: 8

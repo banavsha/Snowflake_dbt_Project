@@ -1,0 +1,73 @@
+version: 2
+
+models:
+
+  - name: stg_hosts
+    description: Cleaned and standardized Airbnb host data.
+    columns:
+
+      - name: host_id
+        description: Unique identifier for each host.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: host_name
+        description: Name of the Airbnb host.
+
+      - name: is_superhost
+        description: Boolean indicator identifying Airbnb Superhosts.
+
+
+  - name: stg_listings
+    description: Cleaned and standardized Airbnb listing data.
+    columns:
+
+      - name: listing_id
+        description: Unique identifier for each listing.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: host_id
+        description: Host associated with the listing.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_hosts')
+              field: host_id
+
+      - name: price
+        description: Listing price converted from source text to decimal.
+        data_tests:
+          - not_null
+
+      - name: minimum_nights
+        description: Minimum stay requirement. Source values of zero are standardized to one night.
+
+
+  - name: stg_reviews
+    description: Cleaned and standardized Airbnb review data.
+    columns:
+
+      - name: listing_id
+        description: Listing associated with the review.
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_listings')
+              field: listing_id
+
+      - name: review_date
+        description: Date on which the review was submitted.
+        data_tests:
+          - not_null
+
+      - name: sentiment
+        description: Standardized sentiment classification for the review.
+        data_tests:
+          - accepted_values:
+              values:
+                - positive
+                - neutral
+                - negative
